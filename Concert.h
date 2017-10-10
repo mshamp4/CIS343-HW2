@@ -13,7 +13,6 @@ class Concert {
         Concert(std::string name, std::vector<std::string> pFriends, int pDesire, std::tm* pDate);
 
         friend std::string friendsList(std::vector<std::string> pFriends);
-
         bool operator<(const Concert& other) const;
         friend std::ostream& operator<<(std::ostream& stream, const Concert& object);
 
@@ -22,6 +21,5 @@ class Concert {
         std::vector<std::string> friends;
         int desire;
         std::tm date;
-        std::string sDate;
 };
 #endif
