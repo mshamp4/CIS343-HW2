@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <ctime>
-#include <random>
+#include <cstdlib>
 #include <algorithm>
 #include "Concert.h"
 
@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
                 list.push_back(Concert(concerts[randConcert], friends, desire, randomDate()));
                 friends.clear();
         }
-        
+  
         std::sort(list.begin(), list.end());
 
         for (int i = 0; i < list.size(); i++) {
@@ -42,9 +42,9 @@ std::tm* randomDate() {
         struct tm* date;
         time(&t);
         date = localtime(&t);
-        date->tm_year = rand() % 100 + 90;
+        date->tm_year = rand() % 17 + 2000;
         date->tm_mon = rand() % 12 + 1;
-        date->tm_wday = rand() % 6;
+        date->tm_wday = rand() % 7;
         date->tm_mday = rand() % 29 + 1;
         return date;
 }
