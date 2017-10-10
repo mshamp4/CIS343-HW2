@@ -14,7 +14,6 @@ Concert::Concert() {
         struct tm* date;
         time(&t);
         date = localtime(&t);
-        sDate = asctime(date);
 }
 
 Concert::Concert(std::string name, std::vector<std::string> pFriends, int pDesire, std::tm* pDate) {
@@ -22,19 +21,16 @@ Concert::Concert(std::string name, std::vector<std::string> pFriends, int pDesir
         friends = pFriends;
         desire = pDesire;
         date = *pDate;
-        sDate = asctime(pDate);
 }
 
 bool Concert::operator<(const Concert& other) const {
-        time_t time1, time2;
-        struct tm* d1, d2;
-        const char* date1 = sDate.c_str();
-        strptime(date1, "%b %d %Y", d1);
-        strptime(date2, "%b %d %Y", &d2);
-        time1 = mktime(d1);
-        time2 = mktime(&d2);
-        double timeDiff = difftime(time1, time2);
-        if ((int)timeDiff > 0 && desire > other.desire) {
+        if (date.tm_year > other.date.tm_year) {
+                return true;
+        } else if (date.tm_mon < other.date.tm_mon) {
+                return true;
+        } else if (date.tm_mday > other.date.tm_mday) {
+                                return true;
+        } else if (desire > other.desire) {
                 return true;
         } else {
                 return false;
@@ -53,6 +49,7 @@ std::string friendsList(std::vector<std::string> pFriends) {
 std::ostream& operator<<(std::ostream& stream, const Concert& object) {
         stream << "Concert Name: " << object.concertName << std::endl
                  << "Friend(s) list:\n" << friendsList(object.friends)
-                 << "Desire: " << object.desire << std::endl << "Date: " << object.sDate;
+                 << "Desire: " << object.desire << std::endl << "Date: " << object.date.tm_mon
+                        << "/" << object.date.tm_mday << "/" << object.date.tm_year << std::endl;
         return stream;
 }
