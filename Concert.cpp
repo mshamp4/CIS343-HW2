@@ -24,13 +24,15 @@ Concert::Concert(std::string name, std::vector<std::string> pFriends, int pDesir
 }
 
 bool Concert::operator<(const Concert& other) const {
-        if (date.tm_year > other.date.tm_year) {
+        if (date.tm_year <  other.date.tm_year) {
                 return true;
-        } else if (date.tm_mon < other.date.tm_mon) {
+        } else if (date.tm_mon < other.date.tm_mon && date.tm_year <= other.date.tm_year) {
                 return true;
-        } else if (date.tm_mday > other.date.tm_mday) {
-                                return true;
-        } else if (desire > other.desire) {
+        } else if (date.tm_mday < other.date.tm_mday && date.tm_mon <= other.date.tm_mon &&
+                         date.tm_year <= other.date.tm_year) {
+                return true;
+        } else if (date.tm_year == other.date.tm_year && date.tm_mon == other.date.tm_mon &&
+                         date.tm_mday == other.date.tm_mday && desire > other.desire) {
                 return true;
         } else {
                 return false;
